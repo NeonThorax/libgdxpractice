@@ -2,6 +2,7 @@ package com.fingus.PRTest;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,6 +21,8 @@ public class FirstScreen implements Screen {
     private final Texture background;
     private final Stage stage;
     private Skin skin;
+    private FileHandle fileHandle;
+    private String jsonString;
 
     public FirstScreen(final RatGame game) {
 
@@ -34,7 +37,9 @@ public class FirstScreen implements Screen {
         // Create stage and skin for UI elements
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage); // Set stage as the input processor
-        skin = new Skin(Gdx.files.internal("uiskin.json")); // Load UI skin
+        fileHandle = Gdx.files.internal("ui/uiskin.json");
+        jsonString = fileHandle.readString();
+        skin = new Skin(fileHandle); // Load UI skin
 
         // Create "Play" button
         TextButton playButton = new TextButton("Play", skin);
